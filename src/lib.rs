@@ -5,6 +5,7 @@ use axum::{
 use html_node::{html, Node};
 
 pub mod assets;
+pub mod components;
 pub mod routes;
 
 #[derive(Clone)]

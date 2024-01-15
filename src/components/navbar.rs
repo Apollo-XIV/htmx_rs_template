@@ -1,0 +1,51 @@
+use html_node::{html, Node};
+
+pub fn navbar() -> Node {
+    html! {
+        <nav id="navbar" class="font-mono relative w-full h-14 bg-tasman-950 flex text-tasman-200 p-4 shadow-xl">
+          <a id="homelink" href="/" class="float-start text-xl font-semibold">crease.sh</a>
+          <ul class="ml-auto flex gap-4">
+            <li><a href="/">Home</a></li>
+            <li><a href="/posts">Posts</a></li>
+            <li><a href="/contact">Contact & Links</a></li>
+          </ul>
+        </nav>
+        <style>"
+          #homelink {
+            color: white;
+            text-decoration: none;
+            background-image: linear-gradient(#d99a5a, #d99a5a);
+            background-size: 0% 0.1em;
+            background-position-y: 105%;
+            background-position-x: 0%;
+            background-repeat: no-repeat;
+            transition: background-size 0.2s ease-in-out;
+          }
+
+          #homelink:hover,
+          #homelink:focus,
+          #homelink:active {
+            background-size: 100% 0.1em;
+          }
+
+          #navbar::after {
+            content: '';
+            inset: 0;
+            position: absolute;
+            mix-blend-mode: overlay;
+            background-size: cover;
+            background-image: url('/assets/images/leaves.webp');
+            pointer-events: none;
+          }
+
+          #navbar>*>li {
+            transition: color 200ms ease-in-out;
+            cursor: pointer;
+          }
+
+          #navbar>*>li:hover {
+            color: #f67441;
+          }"
+        </style>
+    }
+}
