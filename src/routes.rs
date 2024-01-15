@@ -1,26 +1,15 @@
-use askama::Template;
-use axum::{
-    Router,
-    routing::get,
-    response::IntoResponse
-};
-use crate::*;
+use axum::{response::IntoResponse, routing::get, Router};
+use html_node::html;
 
 // Top level subpages
-mod posts;
-mod contact;
 
 pub fn router() -> Router {
-    Router::new()
-        .route("/", get(hello_world))
-        .nest("/posts", posts::router())
-        .nest("/contact", contact::router())
+    Router::new().route("/", get(hello_world))
 }
 
 async fn hello_world() -> impl IntoResponse {
-    HtmlTemplate(HomeTemplate)
+    html! {
+        <h1>"Hello World"</h1>
+    }
+    .to_string()
 }
-
-#[derive(Template)]
-#[template(path = "pages/index.html")]
-struct HomeTemplate;
