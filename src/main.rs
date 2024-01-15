@@ -1,7 +1,10 @@
-use tracing::info;
-use tracing_subscriber::{layer::SubscriberExt, util::SubscriberInitExt};
 use axum::Router;
 use htmx_tests::*;
+use tracing::info;
+use tracing_subscriber::{layer::SubscriberExt, util::SubscriberInitExt};
+
+pub mod assets;
+pub mod pages;
 
 #[tokio::main]
 async fn main() -> anyhow::Result<()> {
@@ -12,16 +15,14 @@ async fn main() -> anyhow::Result<()> {
         )
         .with(tracing_subscriber::fmt::layer())
         .init();
- 
+
     info!("initializing router...");
-    
+
     let router = Router::new()
-        .nest_service("/assets", assets::service()) // assets directory
-        .nest("/", routes::router()) // root
-        ; 
+        .nest("/", pages::route())
+        .nest_service("/assets", assets::service()); // assets directory
 
     let listener = tokio::net::TcpListener::bind("0.0.0.0:3000").await.unwrap();
     axum::serve(listener, router).await.unwrap();
     Ok(())
 }
- 

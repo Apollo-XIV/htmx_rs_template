@@ -1,9 +1,12 @@
 use askama::Template;
-use axum::{response::{IntoResponse, Response, Html}, http::StatusCode};
+use axum::{
+    http::StatusCode,
+    response::{Html, IntoResponse, Response},
+};
 
 /// A wrapper type that we'll use to encapsulate HTML parsed by askama into valid HTML for axum to serve.
 pub struct HtmlTemplate<T>(pub T);
- 
+
 /// Allows us to convert Askama HTML templates into valid HTML for axum to serve in the response.
 impl<T> IntoResponse for HtmlTemplate<T>
 where
@@ -24,6 +27,5 @@ where
     }
 }
 
-pub mod routes;
 pub mod assets;
-
+pub mod routes;
