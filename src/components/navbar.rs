@@ -1,4 +1,4 @@
-use html_node::{html, Node};
+use html_node::{html, text, Node};
 
 pub fn navbar() -> Node {
     html! {

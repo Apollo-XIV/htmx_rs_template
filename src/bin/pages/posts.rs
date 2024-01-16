@@ -1,18 +1,22 @@
-use htmx_rs_template::PageRoute;
 use axum::{response::IntoResponse, routing::get, Router};
 use html_node::{html, Node};
+use htmx_rs_template::PageRoute;
 
 pub fn router(parent: PageRoute) -> Router {
-    let page = PageRoute {
+    PageRoute {
         page,
-        parents: Some(Box::new(parent)),
-        ..PageRoute::default()
-    };
-    Router::new().route("/", get(page.render()))
+        ..PageRoute::default(parent)
+    }
+    .route("/delete", get(delete))
+    .build()
 }
 
 fn page() -> Node {
     html! {
         <h2>"testing again"</h2>
     }
+}
+
+async fn delete() -> impl IntoResponse {
+    "Test response from the server"
 }

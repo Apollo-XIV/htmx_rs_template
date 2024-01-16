@@ -5,14 +5,14 @@ pub mod posts;
 use htmx_rs_template::{components::navbar::navbar, PageRoute};
 
 pub fn route() -> Router {
-    let root = PageRoute {
+    PageRoute {
         page,
         layout,
-        ..PageRoute::default()
-    };
-    Router::new()
-        .route("/", get(root.render()))
-        .nest("/posts", posts::router(root))
+        ..PageRoute::root()
+    }
+    .route("/hello", get("hello :)"))
+    .nest("/posts", posts::router)
+    .build()
 }
 
 pub fn layout(children: Node) -> Node {
@@ -39,7 +39,20 @@ pub fn layout(children: Node) -> Node {
 
 pub fn page() -> Node {
     html! {
-        <test>"Website Root"</test>
-        <p>"hello world"</p>
+        <main class="w-full p-4 flex justify-center place-items-center">
+            <div class="max-w-prose flex flex-col gap-4 font-mono text-tasman-200">
+                <h1 class="text-3xl text-center font-bold text-accent">"This webpage is a test"</h1>
+                <img
+                    class="mx-8 shadow-2xl aspect-video w-full object-cover"
+                    src="/assets/images/cat.jpg"
+                    alt="a cute cat sitting next to a fireplace"
+                >
+                <p class="text-center italic opacity-60 text-sm">"This is a cat"</p>
+
+                <p>"Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur, ea blanditiis quis ipsam fugit ut dignissimos repellendus debitis neque delectus quaerat cum nisi, sed accusantium, modi eaque. Consequatur, sed vitae!"</p>
+                <h2 class="text-lg font-semibold">"Lorem ipsum dolor sit amet."</h2>
+                <p>"Lorem ipsum, dolor sit amet consectetur adipisicing elit. Velit voluptatem vero quam rem ratione doloremque placeat iste officiis dolorem praesentium voluptate quis, neque facere atque sequi eius laborum quos aspernatur a porro laudantium! Nesciunt molestiae iure, fugit molestias quas laboriosam esse quidem voluptatum, veritatis perferendis maiores eveniet, magnam adipisci unde."</p>
+            </div>
+        </main>
     }
 }
